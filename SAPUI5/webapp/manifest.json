@@ -16,7 +16,7 @@
       "version": "1.40.12"
     },
     "dataSources": {
-      "Northwind.svc": {
+      "mainService": {
         "uri": "Northwind/V2/Northwind/Northwind.svc/",
         "type": "OData",
         "settings": {
@@ -73,8 +73,8 @@
         "type": "sap.ui.model.json.JSONModel",
         "uri": "Invoices.json"
       },
-      "": {
-        "dataSource": "Northwind.svc",
+      "northwind": {
+        "dataSource": "mainService",
         "preload": true,
         "settings": {
           "defaultBindingMode": "TwoWay",
