@@ -6,6 +6,13 @@
   },
   "routes": [
     {
+      "authenticationType": "none",
+      "csrfProtection": false,
+      "source": "^/Northwind/V2/Northwind/Northwind.svc/(.*)$",
+      "destination": "Northwind",
+      "target": "$1"
+    },
+    {
       "source": "^(.*)$",
       "target": "$1",
       "service": "html5-apps-repo-rt",
