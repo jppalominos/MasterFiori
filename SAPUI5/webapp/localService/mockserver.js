@@ -16,7 +16,7 @@ sap.ui.define([
         "use strict";
 
         var oMockServer,
-            _sAppPath = "logaligroup/SAPUI5",
+            _sAppPath = "logaligroup/SAPUI5/",
             _sJsonFilesPath = _sAppPath + "localService/mockdata";
 
         var oMockServerInterface = {
@@ -41,10 +41,10 @@ sap.ui.define([
                         //parse manifest for local metadata URI
                         var sJsonFilesUrl = sap.ui.require.toUrl(_sJsonFilesPath);
                         var oMainDataSource = oManifestModel.getProperty("/sap.app/dataSources/mainService");
-                        var sMetadataUrl = sap.ui.require.toUrl(_sAppPath + oMainDataSource.setting.localUri);
+                        var sMetadataUrl = sap.ui.require.toUrl(_sAppPath + oMainDataSource.settings.localUri);
 
                         //ensure there is a trailing slash
-                        var sMockServerUrl = oMainDataSource.uri && new URIError(oMainDataSource.uri).absoluteTo(sap.ui.require.toUrl(_sAppPath)).toString();
+                        var sMockServerUrl = oMainDataSource.uri && new URI(oMainDataSource.uri).absoluteTo(sap.ui.require.toUrl(_sAppPath)).toString();
 
                         //create mock server instance or stop the existing one to reinitializate
                         if (!oMockServer) {
@@ -58,7 +58,7 @@ sap.ui.define([
                         //configure mock server with the given options or a default delay of 0.5s
                         MockServer.config({
                             autoRespond: true,
-                            autoRespondAfter: (oOptionsParameters.delay || oUriParameters.get("serverDelay") || 500)
+                            autoRespondAfter: (oOptions.delay || oUriParameters.get("serverDelay") || 500)
                         });
 
                         //simulate all request using mock data
@@ -67,7 +67,7 @@ sap.ui.define([
                             bGenerateMissingMockData: true
                         });
 
-                        var aRequests = oMockServer.getRequest();
+                        var aRequests = oMockServer.getRequests();
 
                         //compose an error response for each request
                         var fnResponse = function (iErrCode, sMessage, aRequests) {
